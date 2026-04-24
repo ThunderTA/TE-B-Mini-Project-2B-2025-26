@@ -1,0 +1,781 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<title>Cognitive Analytics — Comparative Research</title>
+
+	<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js?v=2.0"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
+	<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js" onload="renderMathInElement(document.body);"></script>
+
+	<style>
+	/* Cache-bust: v2.1 */
+		:root{
+			--bg:#0f1724; --card:#0b1220; --muted:#94a3b8; --accent:#7c3aed;
+			--glass: rgba(255,255,255,0.03);
+			--round: 12px;
+			--text:#e6eef8; --border: rgba(255,255,255,0.03);
+		}
+		[data-theme="light"]{
+			--bg:#ffffff; --card:#f8fafc; --muted:#64748b; --accent:#3b82f6;
+			--glass: rgba(0,0,0,0.03);
+			--round: 12px;
+			--text:#1e293b; --border: rgba(0,0,0,0.1);
+		}
+		*{box-sizing:border-box}
+		body{
+			margin:0;
+			font-family:Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+			background: var(--bg);
+			color:var(--text);
+			-webkit-font-smoothing:antialiased;
+			-moz-osx-font-smoothing:grayscale;
+			padding:28px;
+		}
+
+		header{display:flex;gap:16px;align-items:center;justify-content:space-between;margin-bottom:18px;}
+		header h1{margin:0;font-size:20px;letter-spacing:0.2px}
+		header p{margin:0;color:var(--muted);font-size:13px}
+
+		.layout{display:grid;grid-template-columns: 360px 1fr;gap:18px;align-items:start;}
+
+		.panel{
+			background:var(--card);
+			border-radius:var(--round);
+			padding:16px;
+			box-shadow: 0 6px 18px rgba(2,6,23,0.6);
+			border:1px solid var(--border);
+		}
+		label{display:block;font-size:12px;color:var(--muted);margin-bottom:6px}
+		.field{margin-bottom:12px}
+		input[type="text"], select, input[type="number"]{
+			width:100%;padding:10px 12px;border-radius:8px;border:1px solid var(--border);
+			background:var(--glass);color:inherit;outline:none;font-size:14px;
+		}
+		.two{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+		.checkbox{display:flex;align-items:center;gap:8px;margin-top:6px;}
+		.btn{
+			background: linear-gradient(90deg,#7c3aed,#06b6d4);
+			border:none;color:white;padding:10px 14px;border-radius:10px;cursor:pointer;font-weight:600;
+			box-shadow:0 6px 18px rgba(0,0,0,0.45);
+		}
+		.btn-small{
+			background:var(--glass);
+			border:1px solid var(--border);
+			color:var(--text);padding:6px 10px;border-radius:8px;cursor:pointer;font-weight:500;
+			font-size:13px;
+			transition:background 0.2s;
+		}
+		.btn-small:hover{background:rgba(255,255,255,0.1);}
+		.muted{color:var(--muted);font-size:13px}
+		.small{font-size:12px;color:var(--muted)}
+
+		.charts{display:grid;grid-template-rows: auto auto 1fr;gap:14px;}
+		.chart-card{
+			background:var(--card);
+			border-radius:12px;padding:12px;border:1px solid var(--border);
+			display:flex;flex-direction:column;
+		}
+		.chart-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+		.legend{display:flex;gap:10px;align-items:center}
+		.legend .item{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
+		.swatch{width:14px;height:8px;border-radius:3px}
+		.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;}
+
+		table{width:100%;border-collapse:collapse;font-size:13px;}
+		td,th{padding:8px 10px;border-bottom:1px dashed var(--border)}
+		th{text-align:left;color:var(--muted);font-size:12px}
+		.badge{display:inline-block;padding:2px 8px;border-radius:8px;border:1px solid var(--border);font-size:12px;color:var(--text)}
+		.best-row{background:rgba(124,58,237,0.18)}
+		.primary-row{border-left:3px solid #06b6d4}
+
+		footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+		@media (max-width:900px){.layout{grid-template-columns:1fr;}}
+
+		/* --- MODAL CSS for Popup --- */
+		.modal {
+			display: none; /* Hidden by default */
+			position: fixed; /* Stay in place */
+			z-index: 100; /* Sit on top */
+			left: 0;
+			top: 0;
+			width: 100%; /* Full width */
+			height: 100%; /* Full height */
+			overflow: auto; /* Enable scroll if needed */
+			background-color: rgba(0, 0, 0, 0.8); /* Black w/ opacity */
+			padding-top: 60px;
+		}
+
+		.modal-content {
+			background:var(--card);
+			border-radius:var(--round);
+			padding:24px;
+			box-shadow: 0 8px 30px rgba(0,0,0,0.8);
+			border:1px solid var(--border);
+			margin: 5% auto; /* 5% from the top and centered */
+			width: 80%; /* Could be more or less, depending on screen size */
+			max-width: 800px;
+			position: relative;
+		}
+
+		.theme-toggle {
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			background: var(--card);
+			border: 1px solid var(--border);
+			border-radius: 20px;
+			padding: 8px;
+			cursor: pointer;
+			z-index: 1000;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			font-size: 12px;
+			color: var(--text);
+		}
+
+		.theme-toggle:hover {
+			background: var(--glass);
+		}
+
+		.modal-content h2 {
+			color: var(--accent);
+			margin-top: 0;
+			border-bottom: 1px solid rgba(255,255,255,0.1);
+			padding-bottom: 10px;
+		}
+
+		.modal-content p {
+			font-size: 14px;
+			line-height: 1.6;
+		}
+
+		.modal-content strong {
+			color: #ffffff;
+		}
+
+		.close-btn {
+			color: var(--muted);
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+			position: absolute;
+			top: 10px;
+			right: 20px;
+			cursor: pointer;
+			transition: color 0.2s;
+		}
+
+		.close-btn:hover,
+		.close-btn:focus {
+			color: #fff;
+			text-decoration: none;
+			cursor: pointer;
+		}
+		/* --- END MODAL CSS --- */
+
+	</style>
+</head>
+<body>
+
+	<header>
+		<div>
+			<h1>Cognitive Analytics — Comparative Research</h1>
+			<p class="small">Dataset-driven comparisons across sequence, probabilistic, clustering and optimization methods.</p>
+		</div>
+		<div class="small muted">Cognitive workload · Fatigue modeling · Heatmaps · Task planning</div>
+		<div class="theme-toggle" id="themeToggle">
+			<span>🌙</span>
+			<span>Theme</span>
+		</div>
+	</header>
+
+	<main class="layout">
+		<aside class="panel">
+			<h2 style="font-size:15px">Controls</h2>
+			<div style="display:flex;gap:10px;margin-top:10px">
+				<button class="btn" id="runBtn">Run Analysis</button>
+				<button class="btn-small" id="refreshBtn">Refresh Dataset</button>
+			</div>
+		</aside>
+
+		<!-- research section rendered below -->
+	</main>
+
+	<!-- Research Comparative Section (moved to top, before notes) -->
+	<section id="researchSection" style="margin-top:20px">
+		<div class="chart-card">
+			<div class="chart-head"><strong>Comparative/Research Analysis</strong></div>
+			<div class="small muted" id="researchStats">Loading...</div>
+			<div style="display:flex;gap:10px;align-items:center;margin:8px 0 6px 0">
+				<label class="small" style="display:flex;align-items:center;gap:6px"><input type="checkbox" id="autoRefresh" checked/> Auto refresh</label>
+				<label class="small">Interval
+					<select id="refreshInterval" class="small" style="margin-left:6px">
+						<option value="2000" selected>2s</option>
+						<option value="5000">5s</option>
+						<option value="10000">10s</option>
+					</select>
+				</label>
+				<span class="small muted" id="lastRefresh"></span>
+			</div>
+			<div class="grid" style="margin-top:10px">
+				<div class="chart-card">
+					<div class="chart-head"><strong>Cognitive Workload & Burnout</strong><span class="badge" id="cognitiveBest">Best: —</span></div>
+					<canvas id="cognitiveRadar" height="160"></canvas>
+					<table id="cognitiveTable"><thead><tr><th>Algorithm</th><th>Score</th></tr></thead><tbody></tbody></table>
+				</div>
+				<div class="chart-card">
+					<div class="chart-head"><strong>Mental Fatigue Modeling</strong><span class="badge" id="mentalBest">Best: —</span></div>
+					<canvas id="mentalRadar" height="160"></canvas>
+					<table id="mentalTable"><thead><tr><th>Algorithm</th><th>Score</th></tr></thead><tbody></tbody></table>
+				</div>
+				<div class="chart-card">
+					<div class="chart-head"><strong>Fatigue Heatmaps</strong><span class="badge" id="heatmapBest">Best: —</span></div>
+					<canvas id="heatmapRadar" height="160"></canvas>
+					<table id="heatmapTable"><thead><tr><th>Algorithm</th><th>Score</th></tr></thead><tbody></tbody></table>
+				</div>
+				<div class="chart-card">
+					<div class="chart-head"><strong>Task Distribution & Meetings</strong><span class="badge" id="optimBest">Best: —</span></div>
+					<canvas id="optimRadar" height="160"></canvas>
+					<table id="optimTable"><thead><tr><th>Algorithm</th><th>Score</th></tr></thead><tbody></tbody></table>
+				</div>
+			</div>
+		</div>
+	</section>
+
+<section style="margin-top:24px">
+	<h2 style="font-size:18px;margin-bottom:16px">Algorithms & Notes</h2>
+	<div style="display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))">
+		<div class="chart-card"><strong>Sequence Models</strong><div style="margin-top:6px"><button class="btn-small" data-algo="LSTM">LSTM</button> <button class="btn-small" data-algo="GRU">GRU</button> <button class="btn-small" data-algo="BiLSTM">BiLSTM</button> <button class="btn-small" data-algo="TCN">TCN</button> <button class="btn-small" data-algo="Transformer">Transformer</button> <button class="btn-small" data-algo="ARIMA">ARIMA</button></div></div>
+		<div class="chart-card"><strong>Probabilistic/Structured</strong><div style="margin-top:6px"><button class="btn-small" data-algo="Bayesian Network">Bayesian Network</button> <button class="btn-small" data-algo="Dynamic BN">Dynamic BN</button> <button class="btn-small" data-algo="HMM">HMM</button> <button class="btn-small" data-algo="MDP">MDP</button> <button class="btn-small" data-algo="CRF">CRF</button> <button class="btn-small" data-algo="Fuzzy">Fuzzy Logic</button></div></div>
+		<div class="chart-card"><strong>Clustering</strong><div style="margin-top:6px"><button class="btn-small" data-algo="KMeans">K-Means</button> <button class="btn-small" data-algo="Hierarchical">Hierarchical</button> <button class="btn-small" data-algo="DBSCAN">DBSCAN</button> <button class="btn-small" data-algo="GMM">GMM</button> <button class="btn-small" data-algo="Spectral">Spectral</button> <button class="btn-small" data-algo="Federated Clustering">Federated</button></div></div>
+		<div class="chart-card"><strong>Optimization</strong><div style="margin-top:6px"><button class="btn-small" data-algo="GA">Genetic Algorithms</button> <button class="btn-small" data-algo="PSO">PSO</button> <button class="btn-small" data-algo="ACO">ACO</button> <button class="btn-small" data-algo="SA">Simulated Annealing</button> <button class="btn-small" data-algo="DE">Differential Evolution</button> <button class="btn-small" data-algo="NSGA-II">NSGA-II</button></div></div>
+	</div>
+</section>
+
+	<section style="margin-top:40px">
+		<div class="chart-card">
+			<h3>Which Algorithm is Best?</h3>
+			<p id="dynamicBest" style="margin-top:6px"><b>Per-domain best appears as a badge above each chart.</b></p>
+			<ul class="small muted">
+				<li>Sequence models excel when autocorrelation is strong and signals are smooth.</li>
+				<li>Probabilistic models shine when transition structure is stable and interpretable.</li>
+				<li>Clustering benefits from separability (high silhouette) and privacy constraints.</li>
+				<li>Optimization method choice scales with team size and constraint complexity.</li>
+			</ul>
+			<p>Use the refresh button to re-evaluate after data updates.</p>
+		</div>
+	</section>
+
+	<footer style="margin-top:18px;color:#94a3b8;font-size:12px;text-align:center">
+		<span style="display:inline-block;background-image:linear-gradient(90deg,#22c55e,#16a34a);-webkit-background-clip:text;background-clip:text;color:transparent;font-weight:600">
+			Built for Comparative Research — integrates dataset-driven algorithm scoring
+		</span><br/>
+		© 2026 TE-DS-B-GRP-2. ALL RIGHTS RESERVED.<br/>
+		Contact: 1234567890 | Email: apsit.teds.grp1@gmail.com
+	</footer>
+
+	<div id="explanationModal" class="modal">
+		<div class="modal-content">
+			<span class="close-btn">&times;</span>
+			<h2 id="modalTitle"></h2>
+			<div id="modalContent"></div>
+		</div>
+	</div>
+
+
+	<!-- no traffic scripts -->
+	<script>
+const COLORS={lstm:'#ef4444',prophet:'#3b82f6',linear:'green',timeseries:'orange',hr:'#10b981',eda:'#f59e0b'};
+let charts={};
+const modal = document.getElementById('explanationModal');
+const closeBtn = document.getElementsByClassName('close-btn')[0];
+const modalContentDiv = document.getElementById('modalContent');
+const modalTitle = document.getElementById('modalTitle');
+
+// --- ALGORITHM EXPLANATION DETAILS (STUDIED) ---
+const ALGO_DETAILS = {
+	'LSTM': { 
+		title: 'Long Short-Term Memory (LSTM)', 
+		content: `
+			<p>Sequence model with gated memory (forget/input/output). Handles long-range dependencies in physiological time series.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Forget Gate:</strong> $f_t = \sigma(W_f \cdot [h_{t-1}, x_t] + b_f)$<br/>
+				<strong>2. Input Gate:</strong> $i_t = \sigma(W_i \cdot [h_{t-1}, x_t] + b_i)$<br/>
+				&nbsp;&nbsp;&nbsp;$\tilde{C}_t = \tanh(W_C \cdot [h_{t-1}, x_t] + b_C)$<br/>
+				<strong>3. Update Cell:</strong> $C_t = f_t * C_{t-1} + i_t * \tilde{C}_t$<br/>
+				<strong>4. Output Gate:</strong> $o_t = \sigma(W_o \cdot [h_{t-1}, x_t] + b_o)$<br/>
+				&nbsp;&nbsp;&nbsp;$h_t = o_t * \tanh(C_t)$
+			</div>
+			<p class="small muted" style="margin-top:8px">Where $\sigma$ is the sigmoid function, $C_t$ is cell state, and $h_t$ is hidden state.</p>
+		` 
+	},
+	'GRU': { 
+		title: 'Gated Recurrent Unit (GRU)', 
+		content: `
+			<p>Simplified gated RNN with update/reset gates; often trains faster than LSTM with similar performance.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Reset Gate:</strong> $r_t = \sigma(W_r \cdot [h_{t-1}, x_t])$<br/>
+				<strong>2. Update Gate:</strong> $z_t = \sigma(W_z \cdot [h_{t-1}, x_t])$<br/>
+				<strong>3. Candidate Hidden State:</strong> $\tilde{h}_t = \tanh(W \cdot [r_t * h_{t-1}, x_t])$<br/>
+				<strong>4. Final Hidden State:</strong> $h_t = (1 - z_t) * h_{t-1} + z_t * \tilde{h}_t$
+			</div>
+			<p class="small muted" style="margin-top:8px">Combines forget and input gates into a single update gate.</p>
+		`
+	},
+	'BiLSTM': { 
+		title: 'Bidirectional LSTM (BiLSTM)', 
+		content: `
+			<p>Processes sequences in both forward and backward directions; useful when full context is available.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Forward LSTM:</strong> $\vec{h}_t = LSTM(x_t, \vec{h}_{t-1})$<br/>
+				<strong>2. Backward LSTM:</strong> $\cev{h}_t = LSTM(x_t, \cev{h}_{t+1})$<br/>
+				<strong>3. Concatenation:</strong> $h_t = [\vec{h}_t; \cev{h}_t]$
+			</div>
+			<p class="small muted" style="margin-top:8px">Captures both past and future dependencies in physiological signals.</p>
+		`
+	},
+	'TCN': { 
+		title: 'Temporal Convolutional Network (TCN)', 
+		content: `
+			<p>Causal dilated convolutions for long receptive fields; stable gradients and parallelizable.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Causal Conv:</strong> Output at $t$ only depends on inputs $\le t$.<br/>
+				<strong>2. Dilation:</strong> $F(s) = \sum_{i=0}^{k-1} f(i) \cdot x_{s-d \cdot i}$<br/>
+				<strong>3. Residual Block:</strong> $o = Activation(x + F(x))$
+			</div>
+			<p class="small muted" style="margin-top:8px">Where $d$ is dilation factor and $k$ is kernel size.</p>
+		`
+	},
+	'Transformer': { 
+		title: 'Transformer', 
+		content: `
+			<p>Self-attention captures global dependencies; requires more data, strong when patterns are non-local.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Self-Attention:</strong> $Attention(Q, K, V) = \text{softmax}(\frac{QK^T}{\sqrt{d_k}})V$<br/>
+				<strong>2. Multi-Head:</strong> $\text{MultiHead}(Q, K, V) = \text{Concat}(\text{head}_1, ..., \text{head}_h)W^O$<br/>
+				<strong>3. Feed-Forward:</strong> $FFN(x) = \text{max}(0, xW_1 + b_1)W_2 + b_2$
+			</div>
+			<p class="small muted" style="margin-top:8px">Replaces recurrence with parallelizable self-attention mechanisms.</p>
+		`
+	},
+	'ARIMA': { 
+		title: 'ARIMA', 
+		content: `
+			<p>Classical autoregressive integrated moving average; strong on stationary or differenced signals.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Autoregression (AR):</strong> $Y_t = c + \phi_1 Y_{t-1} + ... + \phi_p Y_{t-p}$<br/>
+				<strong>2. Integrated (I):</strong> $Y'_t = Y_t - Y_{t-d}$ (Differencing)<br/>
+				<strong>3. Moving Average (MA):</strong> $Y_t = \mu + \epsilon_t + \theta_1 \epsilon_{t-1} + ... + \theta_q \epsilon_{t-q}$
+			</div>
+			<p class="small muted" style="margin-top:8px">Parameterized by $(p, d, q)$ for time series modeling.</p>
+		`
+	},
+	'Bayesian Network': { 
+		title: 'Bayesian Network', 
+		content: `
+			<p>Directed acyclic graph of conditional dependencies; interpretable fatigue factor modeling.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Joint Distribution:</strong> $P(X_1, ..., X_n) = \prod_{i=1}^n P(X_i | \text{parents}(X_i))$<br/>
+				<strong>2. Bayes Rule:</strong> $P(A|B) = \frac{P(B|A)P(A)}{P(B)}$<br/>
+				<strong>3. Inference:</strong> Calculating posterior distributions given evidence.
+			</div>
+			<p class="small muted" style="margin-top:8px">Models causal relationships between factors like HR and fatigue.</p>
+		`
+	},
+	'Dynamic BN': { 
+		title: 'Dynamic Bayesian Network', 
+		content: `
+			<p>Extends BN with temporal slices; models evolving fatigue states over time.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Initial Distribution:</strong> $P(Z_1)$<br/>
+				<strong>2. Transition Model:</strong> $P(Z_t | Z_{t-1})$<br/>
+				<strong>3. Observation Model:</strong> $P(X_t | Z_t)$
+			</div>
+			<p class="small muted" style="margin-top:8px">Captures temporal dependencies across multiple time slices.</p>
+		`
+	},
+	'HMM': { 
+		title: 'Hidden Markov Model', 
+		content: `
+			<p>Latent state transitions with emission distributions; well-suited for discrete fatigue levels.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Transition:</strong> $A_{ij} = P(q_t = S_j | q_{t-1} = S_i)$<br/>
+				<strong>2. Emission:</strong> $B_j(k) = P(o_t = v_k | q_t = S_j)$<br/>
+				<strong>3. Viterbi:</strong> $\delta_t(j) = \max_{i} [\delta_{t-1}(i) A_{ij}] B_j(o_t)$
+			</div>
+			<p class="small muted" style="margin-top:8px">Used for decoding hidden mental states from observable physiological data.</p>
+		`
+	},
+	'MDP': { 
+		title: 'Markov Decision Process', 
+		content: `
+			<p>State-transition with actions and rewards; applicable for scheduling and interventions.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Bellman Equation:</strong> $V(s) = \max_a \sum_{s'} P(s'|s,a) [R(s,a,s') + \gamma V(s')]$<br/>
+				<strong>2. Policy:</strong> $\pi(s) = \text{arg max}_a Q(s,a)$<br/>
+				<strong>3. Transition:</strong> $P(s_{t+1} | s_t, a_t)$
+			</div>
+			<p class="small muted" style="margin-top:8px">Optimizes actions to maximize cumulative reward (e.g., productivity vs rest).</p>
+		`
+	},
+	'CRF': { 
+		title: 'Conditional Random Fields', 
+		content: `
+			<p>Discriminative sequence labeling; useful when features inform boundaries of mental states.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Conditional Prob:</strong> $P(y|x) = \frac{1}{Z(x)} \exp(\sum_j \lambda_j f_j(y,x))$<br/>
+				<strong>2. Partition:</strong> $Z(x) = \sum_{y} \exp(\sum_j \lambda_j f_j(y,x))$<br/>
+				<strong>3. Training:</strong> Log-likelihood maximization via SGD.
+			</div>
+			<p class="small muted" style="margin-top:8px">Models sequential dependencies without the strong independence assumptions of HMMs.</p>
+		`
+	},
+	'Fuzzy': { 
+		title: 'Fuzzy Logic Systems', 
+		content: `
+			<p>Rule-based with partial memberships; interpretable when ground truth is subjective.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Fuzzification:</strong> $\mu_A(x) \in [0, 1]$<br/>
+				<strong>2. Inference:</strong> If $x$ is $A$ then $y$ is $B$ (Mamdani/Sugeno)<br/>
+				<strong>3. Defuzzification:</strong> $y^* = \frac{\sum \mu(y_i) \cdot y_i}{\sum \mu(y_i)}$ (Centroid method)
+			</div>
+			<p class="small muted" style="margin-top:8px">Handles ambiguity in fatigue reports and sensory inputs.</p>
+		`
+	},
+	'KMeans': { 
+		title: 'K-Means', 
+		content: `
+			<p>Partition data into K centroids minimizing within-cluster variance; fast baseline for heatmaps.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Assignment:</strong> $S_i^{(t)} = \{x_p : ||x_p - m_i^{(t)}||^2 \le ||x_p - m_j^{(t)}||^2\}$<br/>
+				<strong>2. Update:</strong> $m_i^{(t+1)} = \frac{1}{|S_i^{(t)}|} \sum_{x_j \in S_i^{(t)}} x_j$<br/>
+				<strong>3. Objective:</strong> $\text{arg min}_S \sum_{i=1}^k \sum_{x \in S_i} ||x - \mu_i||^2$
+			</div>
+			<p class="small muted" style="margin-top:8px">Iteratively minimizes the sum of squared distances to centroids.</p>
+		`
+	},
+	'Hierarchical': { 
+		title: 'Hierarchical Clustering', 
+		content: `
+			<p>Agglomerative/divisive tree of clusters; useful for multi-scale groupings.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Distances:</strong> $d(x, y)$ (Euclidean, Manhattan)<br/>
+				<strong>2. Linkage:</strong> Single, Complete, Average, or Ward's method.<br/>
+				<strong>3. Dendrogram:</strong> $d(A, B) = \min \{d(a, b) : a \in A, b \in B\}$
+			</div>
+			<p class="small muted" style="margin-top:8px">Creates a hierarchy of clusters without pre-specifying $K$.</p>
+		`
+	},
+	'DBSCAN': { 
+		title: 'DBSCAN', 
+		content: `
+			<p>Density-based clustering; finds arbitrary shapes and outliers; no K required.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Core Point:</strong> $|N_{\epsilon}(p)| \ge \text{MinPts}$<br/>
+				<strong>2. Reachability:</strong> $q$ is directly reachable from $p$ if $d(p,q) \le \epsilon$.<br/>
+				<strong>3. Clustering:</strong> Connected core points form a cluster.
+			</div>
+			<p class="small muted" style="margin-top:8px">Effective for identifying noise and non-convex cluster shapes.</p>
+		`
+	},
+	'GMM': { 
+		title: 'Gaussian Mixture Models', 
+		content: `
+			<p>Soft probabilistic clusters via mixture of Gaussians; captures elliptical clusters.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. PDF:</strong> $p(x) = \sum_{k=1}^K \pi_k \mathcal{N}(x | \mu_k, \Sigma_k)$<br/>
+				<strong>2. E-step:</strong> $\gamma(z_{nk}) = \frac{\pi_k \mathcal{N}(x_n | \mu_k, \Sigma_k)}{\sum_j \pi_j \mathcal{N}(x_n | \mu_j, \Sigma_j)}$<br/>
+				<strong>3. M-step:</strong> Update $\pi_k, \mu_k, \Sigma_k$ using responsibilities.
+			</div>
+			<p class="small muted" style="margin-top:8px">Uses Expectation-Maximization to fit Gaussian parameters.</p>
+		`
+	},
+	'Spectral': { 
+		title: 'Spectral Clustering', 
+		content: `
+			<p>Graph Laplacian eigenvector embedding; strong for non-convex clusters.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Affinity:</strong> $W_{ij} = \exp(-||x_i - x_j||^2 / 2\sigma^2)$<br/>
+				<strong>2. Laplacian:</strong> $L = D - W$ (Unnormalized or Normalized)<br/>
+				<strong>3. Eigen-decomp:</strong> Project data into subspace of first $k$ eigenvectors.
+			</div>
+			<p class="small muted" style="margin-top:8px">Transforms clustering into a graph-partitioning problem.</p>
+		`
+	},
+	'Federated Clustering': { 
+		title: 'Federated Clustering', 
+		content: `
+			<p>Privacy-preserving aggregation of client-side cluster statistics.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Local Step:</strong> Clients compute centroids on local data.<br/>
+				<strong>2. Aggregation:</strong> $\mu_{global} = \frac{\sum n_i \mu_i}{\sum n_i}$<br/>
+				<strong>3. Privacy:</strong> Differentially private noise added to local updates.
+			</div>
+			<p class="small muted" style="margin-top:8px">Clusters team data without raw physiological signals leaving devices.</p>
+		`
+	},
+	'GA': { 
+		title: 'Genetic Algorithms', 
+		content: `
+			<p>Population-based metaheuristic with crossover/mutation; robust for combinatorial schedules.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Selection:</strong> $P(i) = \frac{f_i}{\sum f_j}$ (Fitness-proportionate)<br/>
+				<strong>2. Crossover:</strong> Combine genes from two parents to create offspring.<br/>
+				<strong>3. Mutation:</strong> Randomly flip bits/values with probability $p_m$.
+			</div>
+			<p class="small muted" style="margin-top:8px">Simulates natural evolution to optimize task distribution.</p>
+		`
+	},
+	'PSO': { 
+		title: 'Particle Swarm Optimization', 
+		content: `
+			<p>Velocity-based swarm seeking optima; few hyperparameters, quick convergence.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Velocity:</strong> $v_{t+1} = w v_t + c_1 r_1 (p_{best}-x_t) + c_2 r_2 (g_{best}-x_t)$<br/>
+				<strong>2. Position:</strong> $x_{t+1} = x_t + v_{t+1}$<br/>
+				<strong>3. Convergence:</strong> Swarm collapses toward global optimum.
+			</div>
+			<p class="small muted" style="margin-top:8px">Particles explore search space by following local and global bests.</p>
+		`
+	},
+	'ACO': { 
+		title: 'Ant Colony Optimization', 
+		content: `
+			<p>Pheromone-inspired exploration; strong for routing and assignment problems.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Transition:</strong> $P_{ij} = \frac{\tau_{ij}^\alpha \eta_{ij}^\beta}{\sum \tau_{ik}^\alpha \eta_{ik}^\beta}$<br/>
+				<strong>2. Update:</strong> $\tau_{ij} = (1-\rho)\tau_{ij} + \sum \Delta \tau_{ij}^k$<br/>
+				<strong>3. Heuristic:</strong> $\eta_{ij} = 1 / d_{ij}$
+			</div>
+			<p class="small muted" style="margin-top:8px">Artificial ants deposit pheromones to reinforce high-quality paths.</p>
+		`
+	},
+	'SA': { 
+		title: 'Simulated Annealing', 
+		content: `
+			<p>Probabilistic hill-climbing with temperature; escapes local minima.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Acceptance:</strong> $P = \min(1, \exp(-\frac{\Delta E}{T}))$<br/>
+				<strong>2. Cooling:</strong> $T_{k+1} = \alpha T_k$ (Exponential schedule)<br/>
+				<strong>3. Metropolis:</strong> Always accept improvements, accept worse moves by $P$.
+			</div>
+			<p class="small muted" style="margin-top:8px">Inspired by the annealing process in metallurgy.</p>
+		`
+	},
+	'DE': { 
+		title: 'Differential Evolution', 
+		content: `
+			<p>Vector-based evolutionary method; good for continuous parameter optimization.</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Mutation:</strong> $v_i = x_{r1} + F \cdot (x_{r2} - x_{r3})$<br/>
+				<strong>2. Crossover:</strong> $u_{ij} = v_{ij}$ if $rand \le CR$ else $x_{ij}$<br/>
+				<strong>3. Selection:</strong> Keep offspring if fitness is better.
+			</div>
+			<p class="small muted" style="margin-top:8px">Optimizes objective functions using vector differences between individuals.</p>
+		`
+	},
+	'NSGA-II': { 
+		title: 'NSGA-II', 
+		content: `
+			<p>Multi-objective GA with fast non-dominated sorting; balances trade-offs (e.g., fairness vs load).</p>
+			<div style="background:var(--glass);padding:12px;border-radius:8px;margin-top:10px;font-family:monospace;font-size:12px">
+				<strong>1. Non-dominated Sorting:</strong> Group population into Pareto fronts.<br/>
+				<strong>2. Crowding Distance:</strong> Maintain diversity along the Pareto front.<br/>
+				<strong>3. Elitism:</strong> Carry over best individuals to the next generation.
+			</div>
+			<p class="small muted" style="margin-top:8px">Finds a set of optimal solutions balancing conflicting objectives.</p>
+		`
+	},
+};
+// --- END ALGORITHM EXPLANATION DETAILS ---
+
+// no line charts in research-only mode
+
+window.addEventListener('DOMContentLoaded',()=>{
+	// Theme toggle functionality
+	const themeToggle = document.getElementById('themeToggle');
+	const savedTheme = localStorage.getItem('theme') || 'dark';
+	document.documentElement.setAttribute('data-theme', savedTheme);
+	updateThemeToggle(savedTheme);
+
+	themeToggle.addEventListener('click', () => {
+		const currentTheme = document.documentElement.getAttribute('data-theme') || 'dark';
+		const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+		document.documentElement.setAttribute('data-theme', newTheme);
+		localStorage.setItem('theme', newTheme);
+		updateThemeToggle(newTheme);
+	});
+
+	function updateThemeToggle(theme) {
+		const icon = themeToggle.querySelector('span:first-child');
+		icon.textContent = theme === 'dark' ? '🌙' : '☀️';
+	}
+
+	document.getElementById('runBtn').addEventListener('click',runResearch);
+	document.getElementById('refreshBtn').addEventListener('click',refreshDataset);
+	const ar=document.getElementById('autoRefresh'); if(ar){ar.addEventListener('change',setupAutoRefresh);}
+	const ri=document.getElementById('refreshInterval'); if(ri){ri.addEventListener('change',setupAutoRefresh);}
+
+	// --- MODAL EVENT LISTENERS ---
+	document.querySelectorAll('.btn-small').forEach(button => {
+		button.addEventListener('click', function() {
+			const algoKey = this.getAttribute('data-algo');
+			openExplanationModal(algoKey);
+		});
+	});
+
+	closeBtn.onclick = function() {
+		modal.style.display = 'none';
+	}
+
+	window.onclick = function(event) {
+		if (event.target == modal) {
+			modal.style.display = 'none';
+		}
+	}
+
+	document.addEventListener('keydown', function(event) {
+		if (event.key === 'Escape') {
+			modal.style.display = 'none';
+		}
+	});
+	// --- END MODAL EVENT LISTENERS ---
+	runResearch();
+	setupAutoRefresh();
+});
+
+// no mode toggle in research-only mode
+
+// --- NEW FUNCTION TO OPEN MODAL ---
+function openExplanationModal(algoKey) {
+	const details = ALGO_DETAILS[algoKey];
+	if (!details) return;
+
+	modalTitle.textContent = details.title;
+	modalContentDiv.innerHTML = details.content;
+	modal.style.display = 'block';
+
+	// Render LaTeX using KaTeX
+	if (window.renderMathInElement) {
+		renderMathInElement(modalContentDiv, {
+			delimiters: [
+				{left: '$$', right: '$$', display: true},
+				{left: '$', right: '$', display: false}
+			]
+		});
+	}
+}
+// --- END NEW FUNCTION TO OPEN MODAL ---
+
+
+// no traffic analysis functions in research-only mode
+
+async function runResearch(){
+	const btn=document.getElementById('runBtn');
+	btn.disabled=true;
+	btn.textContent='Analyzing...';
+	try{
+		const res=await fetch('/api/research/comparative?mode=live').then(r=>r.json());
+		if(res.error) throw new Error(res.error);
+		const {stats,scores}=res;
+		document.getElementById('researchStats').textContent=
+			`Subjects: ${stats.subjects} · Sessions: ${stats.sessions} · HR r1: ${stats.hr_autocorr_lag1.toFixed(3)} · Silhouette: ${stats.cluster_silhouette.toFixed(3)}`;
+		renderScores('cognitive',scores.cognitive,'LSTM','cognitiveBest');
+		renderScores('mental',scores.mental,'Bayesian Network','mentalBest');
+		renderScores('heatmap',scores.heatmaps,'K-Means','heatmapBest');
+		renderScores('optim',scores.optimization,'Genetic Algorithms','optimBest');
+		const lr=document.getElementById('lastRefresh'); if(lr){lr.textContent=`Last refresh: ${new Date().toLocaleTimeString()}`;}
+	}catch(e){
+		console.error(e);
+		alert('Error running research analysis');
+	}
+	btn.disabled=false;btn.textContent='Run Analysis';
+}
+
+let refreshTimer=null;
+function setupAutoRefresh(){
+	if(refreshTimer){clearInterval(refreshTimer);refreshTimer=null;}
+	const a=document.getElementById('autoRefresh'); const enabled=a?a.checked:false;
+	const r=document.getElementById('refreshInterval'); const interval=r?parseInt(r.value,10):2000;
+	if(enabled){
+		refreshTimer=setInterval(()=>{ runResearch(); },interval);
+	}
+}
+
+function renderScores(prefix,list,primaryName,badgeId){
+	const table=document.getElementById(prefix+'Table').querySelector('tbody');
+	table.innerHTML='';
+	const labels=list.map(x=>x.name);
+	const data=list.map(x=>x.score);
+	let best={name:'',score:-Infinity};
+	list.forEach(item=>{
+		const tr=document.createElement('tr');
+		const td1=document.createElement('td');td1.textContent=item.name;
+		const td2=document.createElement('td');td2.textContent=item.score;
+		tr.appendChild(td1);tr.appendChild(td2);table.appendChild(tr);
+		if(item.name===primaryName) tr.classList.add('primary-row');
+		if(item.score>best.score){best=item;}
+	});
+	const canvas=document.getElementById(prefix+'Radar');
+	if(charts[prefix+'Radar']) charts[prefix+'Radar'].destroy();
+	charts[prefix+'Radar']=new Chart(canvas,{
+		type:'radar',
+		data:{labels,datasets:[{label:'Suitability Score',data,fill:true,backgroundColor:(context)=>{
+				const chart = context.chart;
+				const {ctx, chartArea} = chart;
+				if (!chartArea) return null;
+				const gradient = ctx.createLinearGradient(0, chartArea.bottom, 0, chartArea.top);
+				const accentColor = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim();
+				gradient.addColorStop(0, accentColor + '00');
+				gradient.addColorStop(0.5, accentColor + '40');
+				gradient.addColorStop(1, accentColor + '80');
+				return gradient;
+			},borderColor:getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(),borderWidth:2,pointBackgroundColor:getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(),pointBorderColor:'#fff',pointHoverBackgroundColor:'#fff',pointHoverBorderColor:getComputedStyle(document.documentElement).getPropertyValue('--accent').trim(),pointRadius:4,pointHoverRadius:6}]},
+		options:{
+			scales:{
+				r:{
+					angleLines:{color:'rgba(255,255,255,0.1)'},
+					grid:{color:'rgba(255,255,255,0.05)'},
+					pointLabels:{
+						color:getComputedStyle(document.documentElement).getPropertyValue('--text').trim(),
+						font:{size:11,weight:'500'}
+					}
+				}
+			},
+			plugins:{
+				legend:{display:false},
+				tooltip:{
+					backgroundColor:getComputedStyle(document.documentElement).getPropertyValue('--card').trim(),
+					titleColor:getComputedStyle(document.documentElement).getPropertyValue('--text').trim(),
+					bodyColor:getComputedStyle(document.documentElement).getPropertyValue('--text').trim(),
+					borderColor:getComputedStyle(document.documentElement).getPropertyValue('--border').trim(),
+					padding:12,
+					displayColors:false,
+					callbacks:{
+						label:function(context){return `${context.dataset.label}: ${context.parsed.r}`;}
+					}
+				}
+			},
+			animation:{duration:1000,easing:'easeInOutQuart'}
+		}
+	});
+	[...table.children].forEach(tr=>{
+		if(tr.firstChild.textContent===best.name) tr.classList.add('best-row');
+	});
+	const badge=document.getElementById(badgeId);
+	if(badge) badge.textContent=`Best: ${best.name} (${best.score})`;
+}
+
+async function refreshDataset(){
+	const el=document.getElementById('refreshBtn');
+	const old=el.textContent;el.textContent='Refreshing...';el.disabled=true;
+	try{await fetch('/api/datasets/refresh').then(r=>r.json());await runResearch();}
+	catch(e){alert('Failed to refresh datasets');}
+	el.textContent=old;el.disabled=false;
+}
+	</script>
+</body>
+</html>

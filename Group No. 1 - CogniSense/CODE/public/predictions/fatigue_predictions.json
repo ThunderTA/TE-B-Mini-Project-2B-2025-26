@@ -1,0 +1,652 @@
+{
+  "items": [
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 14.44444444,
+      "mentalFatigueScore": 14.16666667,
+      "mentalFatiguePred": 20.719101615150798
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 24.02777778,
+      "mentalFatigueScore": 11.25,
+      "mentalFatiguePred": 26.72337277054863
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 20.0,
+      "mentalFatigueScore": 45.83333333,
+      "mentalFatiguePred": 24.19983851719391
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 15.27777777777778,
+      "mentalFatigueScore": 33.47222222222223,
+      "mentalFatiguePred": 21.24121215282417
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 59.16666666666666,
+      "mentalFatigueScore": 48.333333333333336,
+      "mentalFatiguePred": 48.739033656966456
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 31.52777777777778,
+      "mentalFatigueScore": 34.02777777777778,
+      "mentalFatiguePred": 31.422367583155335
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 9.999999999999998,
+      "mentalFatigueScore": 4.02777777777778,
+      "mentalFatiguePred": 17.934512098528575
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 77.22222222222221,
+      "mentalFatigueScore": 37.5,
+      "mentalFatiguePred": 60.05142857955664
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 48.333333333333336,
+      "mentalFatigueScore": 35.833333333333336,
+      "mentalFatiguePred": 41.95159670341235
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 1.527777778,
+      "mentalFatigueScore": 0.972222222,
+      "mentalFatiguePred": 12.626388327298566
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 1.25,
+      "mentalFatigueScore": 1.527777778,
+      "mentalFatiguePred": 12.452351482196411
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 7.5,
+      "mentalFatigueScore": 48.47222222,
+      "mentalFatiguePred": 16.368180493862244
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 3.3333333333333326,
+      "mentalFatigueScore": 2.500000000000002,
+      "mentalFatiguePred": 13.757627819418353
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 47.5,
+      "mentalFatigueScore": 15.138888888888893,
+      "mentalFatiguePred": 41.42948616852357
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 24.72222222222222,
+      "mentalFatigueScore": 77.22222222222221,
+      "mentalFatiguePred": 27.158464881563646
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 18.61111111,
+      "mentalFatigueScore": 33.05555556,
+      "mentalFatiguePred": 23.32965429168313
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 25.0,
+      "mentalFatigueScore": 36.80555556,
+      "mentalFatiguePred": 27.332501726526573
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 46.52777778,
+      "mentalFatigueScore": 53.47222222,
+      "mentalFatiguePred": 40.82035721254563
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 27.91666667,
+      "mentalFatigueScore": 24.30555556,
+      "mentalFatiguePred": 29.15988860072574
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 57.91666667,
+      "mentalFatigueScore": 38.33333333,
+      "mentalFatiguePred": 47.95586785672174
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 40.97222222,
+      "mentalFatigueScore": 36.80555556,
+      "mentalFatiguePred": 37.33962031050252
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 21.250000000000004,
+      "mentalFatigueScore": 21.666666666666668,
+      "mentalFatiguePred": 24.983004319527076
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 33.75,
+      "mentalFatigueScore": 28.61111111111111,
+      "mentalFatiguePred": 32.81466234285874
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 41.94444444444444,
+      "mentalFatigueScore": 28.47222222222222,
+      "mentalFatiguePred": 37.94874926926505
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 14.444444444444445,
+      "mentalFatigueScore": 15.694444444444445,
+      "mentalFatiguePred": 20.71910161793539
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 44.86111111111112,
+      "mentalFatigueScore": 30.41666666666667,
+      "mentalFatiguePred": 39.77613614137579
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 26.25,
+      "mentalFatigueScore": 19.583333333333336,
+      "mentalFatiguePred": 28.115667528859742
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 25.69444444,
+      "mentalFatigueScore": 11.80555556,
+      "mentalFatiguePred": 27.767593836149302
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 23.19444444,
+      "mentalFatigueScore": 11.80555556,
+      "mentalFatiguePred": 26.201262231482968
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 22.36111111,
+      "mentalFatigueScore": 31.80555556,
+      "mentalFatiguePred": 25.67915169868263
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 9.027777778,
+      "mentalFatigueScore": 9.444444444,
+      "mentalFatiguePred": 17.325383141297564
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 8.611111111,
+      "mentalFatigueScore": 8.611111111,
+      "mentalFatiguePred": 17.06432787364433
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 10.69444444,
+      "mentalFatigueScore": 18.47222222,
+      "mentalFatiguePred": 18.3696042081513
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 50.27777777777778,
+      "mentalFatigueScore": 35.0,
+      "mentalFatiguePred": 43.16985461815283
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 43.47222222222222,
+      "mentalFatigueScore": 35.55555555555556,
+      "mentalFatiguePred": 38.90595191656115
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 57.77777777777777,
+      "mentalFatigueScore": 59.44444444444444,
+      "mentalFatiguePred": 47.86884943215183
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 16.52777778,
+      "mentalFatigueScore": 26.25,
+      "mentalFatiguePred": 22.02437795654963
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 22.77777778,
+      "mentalFatigueScore": 19.44444444,
+      "mentalFatiguePred": 25.940206968215463
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 23.61111111,
+      "mentalFatigueScore": 46.38888889,
+      "mentalFatiguePred": 26.462317501015796
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 15.555555555555555,
+      "mentalFatigueScore": 18.88888888888889,
+      "mentalFatiguePred": 21.415248997787096
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 23.88888888888889,
+      "mentalFatigueScore": 24.583333333333336,
+      "mentalFatiguePred": 26.63635434667487
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 20.13888888888889,
+      "mentalFatigueScore": 25.694444444444443,
+      "mentalFatiguePred": 24.286856939675374
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 4.583333333333334,
+      "mentalFatigueScore": 4.4444444444444455,
+      "mentalFatiguePred": 14.540793621751522
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 6.111111111111112,
+      "mentalFatigueScore": 6.111111111111112,
+      "mentalFatiguePred": 15.497996269047613
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 5.972222222222223,
+      "mentalFatigueScore": 18.88888888888889,
+      "mentalFatiguePred": 15.410977846566151
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 0.0,
+      "mentalFatigueScore": 6.805555555555554,
+      "mentalFatiguePred": 11.669185679863244
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 0.0,
+      "mentalFatigueScore": 2.361111111111114,
+      "mentalFatiguePred": 11.669185679863244
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 0.0,
+      "mentalFatigueScore": 22.5,
+      "mentalFatiguePred": 11.669185679863244
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 25.0,
+      "mentalFatigueScore": 1.1111111111111127,
+      "mentalFatiguePred": 27.332501726526573
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 15.555555555555555,
+      "mentalFatigueScore": 0.2777777777777768,
+      "mentalFatiguePred": 21.415248997787096
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 18.333333333333336,
+      "mentalFatigueScore": 9.02777777777778,
+      "mentalFatiguePred": 23.155617447416354
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 8.611111111111114,
+      "mentalFatigueScore": 6.25,
+      "mentalFatiguePred": 17.06432787371395
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 29.30555555555556,
+      "mentalFatigueScore": 6.944444444444442,
+      "mentalFatiguePred": 30.030072823451928
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 13.055555555555554,
+      "mentalFatigueScore": 16.666666666666668,
+      "mentalFatiguePred": 19.848917393120757
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 0.0,
+      "mentalFatigueScore": 0.1388888888888884,
+      "mentalFatiguePred": 11.669185679863244
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 0.0,
+      "mentalFatigueScore": 0.2777777777777768,
+      "mentalFatiguePred": 11.669185679863244
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 0.0,
+      "mentalFatigueScore": 0.0,
+      "mentalFatiguePred": 11.669185679863244
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 0.0,
+      "mentalFatigueScore": 0.0,
+      "mentalFatiguePred": 11.669185679863244
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 9.02777777777778,
+      "mentalFatigueScore": 0.4166666666666652,
+      "mentalFatiguePred": 17.325383141158337
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 0.1388888888888884,
+      "mentalFatigueScore": 0.0,
+      "mentalFatiguePred": 11.756204102344705
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 0.277777778,
+      "mentalFatigueScore": 0.0,
+      "mentalFatiguePred": 11.843222524965398
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 15.27777778,
+      "mentalFatigueScore": 0.138888889,
+      "mentalFatiguePred": 21.241212154216463
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 0.972222222,
+      "mentalFatigueScore": 0.277777778,
+      "mentalFatiguePred": 12.278314637094255
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 0.1388888888888884,
+      "mentalFatigueScore": 12.083333333333336,
+      "mentalFatiguePred": 11.756204102344705
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 16.388888888888886,
+      "mentalFatigueScore": 19.583333333333336,
+      "mentalFatiguePred": 21.93735953267587
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 27.916666666666668,
+      "mentalFatigueScore": 62.22222222222222,
+      "mentalFatiguePred": 29.1598885986373
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 3.472222222222221,
+      "mentalFatigueScore": 18.47222222222222,
+      "mentalFatiguePred": 13.844646241899817
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 73.61111111111111,
+      "mentalFatigueScore": 57.91666666666666,
+      "mentalFatiguePred": 57.7889495950386
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 56.11111111111112,
+      "mentalFatigueScore": 70.69444444444444,
+      "mentalFatiguePred": 46.824628362374284
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 7.638888889,
+      "mentalFatigueScore": 17.08333333,
+      "mentalFatiguePred": 16.45519891641332
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 26.11111111,
+      "mentalFatigueScore": 27.5,
+      "mentalFatiguePred": 28.02864910568213
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 14.86111111,
+      "mentalFatigueScore": 35.13888889,
+      "mentalFatiguePred": 20.98015688468363
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 41.25,
+      "mentalFatigueScore": 52.22222222222223,
+      "mentalFatiguePred": 37.51365715685774
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 73.33333333333334,
+      "mentalFatigueScore": 57.08333333333333,
+      "mentalFatiguePred": 57.61491275007569
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 47.77777777777778,
+      "mentalFatigueScore": 71.38888888888889,
+      "mentalFatiguePred": 41.603523013486495
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 19.02777777777778,
+      "mentalFatigueScore": 20.694444444444443,
+      "mentalFatiguePred": 23.59070955982367
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 55.27777777777778,
+      "mentalFatigueScore": 47.083333333333336,
+      "mentalFatiguePred": 46.3025178274855
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 49.02777777777778,
+      "mentalFatigueScore": 74.44444444444444,
+      "mentalFatiguePred": 42.38668881581967
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 55.41666666666667,
+      "mentalFatigueScore": 18.61111111111111,
+      "mentalFatiguePred": 46.389536249966966
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 56.11111111111112,
+      "mentalFatigueScore": 35.833333333333336,
+      "mentalFatiguePred": 46.824628362374284
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 46.38888888888889,
+      "mentalFatigueScore": 63.888888888888886,
+      "mentalFatiguePred": 40.73333878867187
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 5.277777778,
+      "mentalFatigueScore": 4.861111111,
+      "mentalFatiguePred": 14.975885734298064
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 48.33333333,
+      "mentalFatigueScore": 17.63888889,
+      "mentalFatiguePred": 41.95159670132391
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 22.63888889,
+      "mentalFatigueScore": 32.08333333,
+      "mentalFatiguePred": 25.853188545037852
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 12.222222222222223,
+      "mentalFatigueScore": 35.0,
+      "mentalFatiguePred": 19.326806858231983
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 41.66666666666667,
+      "mentalFatigueScore": 38.33333333333333,
+      "mentalFatiguePred": 37.77471242430213
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 29.166666666666664,
+      "mentalFatigueScore": 38.05555555555556,
+      "mentalFatiguePred": 29.94305440097046
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 11.11111111111111,
+      "mentalFatigueScore": 34.583333333333336,
+      "mentalFatiguePred": 18.63065947838028
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 12.5,
+      "mentalFatigueScore": 30.41666666666667,
+      "mentalFatiguePred": 19.50084370319491
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 13.472222222222223,
+      "mentalFatigueScore": 19.166666666666664,
+      "mentalFatiguePred": 20.10997266056515
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 35.41666667,
+      "mentalFatigueScore": 26.11111111,
+      "mentalFatiguePred": 33.85888341472474
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 32.08333333,
+      "mentalFatigueScore": 19.30555556,
+      "mentalFatiguePred": 31.770441270992745
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 37.63888889,
+      "mentalFatigueScore": 27.91666667,
+      "mentalFatiguePred": 35.25117817303585
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 10.555555555555555,
+      "mentalFatigueScore": 10.694444444444445,
+      "mentalFatiguePred": 18.282585788454426
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 39.30555555555556,
+      "mentalFatigueScore": 14.02777777777778,
+      "mentalFatiguePred": 36.295399242117256
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 28.75,
+      "mentalFatigueScore": 21.944444444444443,
+      "mentalFatiguePred": 29.681999133526073
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 7.500000000000001,
+      "mentalFatigueScore": 13.611111111111112,
+      "mentalFatiguePred": 16.368180493862244
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 9.444444444444445,
+      "mentalFatigueScore": 22.22222222222222,
+      "mentalFatiguePred": 17.586438408602724
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 13.055555555555554,
+      "mentalFatigueScore": 23.61111111111111,
+      "mentalFatiguePred": 19.848917393120757
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 11.11111111,
+      "mentalFatigueScore": 67.77777778,
+      "mentalFatiguePred": 18.630659477684134
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 27.08333333,
+      "mentalFatigueScore": 62.5,
+      "mentalFatiguePred": 28.637778061660075
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 21.11111111,
+      "mentalFatigueScore": 74.30555556,
+      "mentalFatiguePred": 24.895985896349465
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 0.0,
+      "mentalFatigueScore": 21.52777777777778,
+      "mentalFatiguePred": 11.669185679863244
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 8.611111111111114,
+      "mentalFatigueScore": 30.97222222222222,
+      "mentalFatiguePred": 17.06432787371395
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 10.833333333333334,
+      "mentalFatigueScore": 33.47222222222223,
+      "mentalFatiguePred": 18.456622633417354
+    },
+    {
+      "measurementNumber": 0,
+      "physicalFatigueScore": 10.97222222222222,
+      "mentalFatigueScore": 37.638888888888886,
+      "mentalFatiguePred": 18.543641055898817
+    },
+    {
+      "measurementNumber": 1,
+      "physicalFatigueScore": 33.75,
+      "mentalFatigueScore": 36.80555555555556,
+      "mentalFatiguePred": 32.81466234285874
+    },
+    {
+      "measurementNumber": 2,
+      "physicalFatigueScore": 26.52777777777778,
+      "mentalFatigueScore": 32.5,
+      "mentalFatiguePred": 28.289704373822666
+    }
+  ]
+}

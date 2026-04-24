@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Universal AI Sentinel - Pro Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #020617; color: #f8fafc; font-family: 'JetBrains Mono', monospace; overflow: hidden; }
+        .glass { background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .neon-blue { box-shadow: 0 0 30px rgba(14, 165, 233, 0.2); border: 1px solid rgba(14, 165, 233, 0.4); }
+        canvas { border-radius: 2rem; width: 100%; height: auto; transition: all 0.3s ease; }
+        .active-source { background: #0ea5e9; color: white; box-shadow: 0 0 20px rgba(14, 165, 233, 0.6); }
+        /* High visibility text sizes */
+        .text-huge { font-size: 4.5rem; line-height: 1; }
+        .text-title { font-size: 1.25rem; font-weight: 900; letter-spacing: 0.1em; }
+        .stat-label { font-size: 0.75rem; color: #94a3b8; font-weight: 800; }
+    </style>
+</head>
+<body class="p-4">
+    <div class="max-w-[1920px] mx-auto space-y-4">
+        
+        <div class="glass p-5 rounded-3xl flex justify-between items-center neon-blue">
+            <div class="flex items-center gap-8">
+                <h1 class="text-3xl font-black text-sky-500 tracking-tighter">SENTINEL <span class="text-white">PRO</span></h1>
+                <div class="flex gap-6 text-xs font-bold text-slate-500 uppercase">
+                    <span>TRACKING: <span id="node-count" class="text-sky-400">0</span></span>
+                    <span>ENGINE: <span id="mode-text" class="text-emerald-400">WEBCAM</span></span>
+                </div>
+            </div>
+            
+            <div class="flex bg-slate-900/90 p-1.5 rounded-2xl border border-white/10">
+                <button id="btn-camera" onclick="switchSource('camera')" class="active-source text-xs font-bold px-8 py-3 rounded-xl transition-all">MY CAMERA</button>
+                <button id="btn-meet" onclick="switchSource('meet')" class="text-slate-400 text-xs font-bold px-8 py-3 rounded-xl transition-all">GOOGLE MEET</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[84vh]">
+            
+            <div class="lg:col-span-3 space-y-4">
+                <div class="glass p-8 rounded-[2.5rem] h-full flex flex-col gap-8">
+                    <p class="text-sky-500 font-black text-xs tracking-[0.2em] uppercase border-b border-white/5 pb-4">Anatomical HUD</p>
+                    
+                    <div class="grid grid-cols-1 gap-6 flex-1 overflow-hidden">
+                        <div class="space-y-2">
+                            <span class="stat-label">EYE_L_R CENTER</span>
+                            <div id="eye-coord" class="text-sky-400 font-bold text-lg">X:0.0 Y:0.0</div>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="stat-label">NOSE_TIP APEX</span>
+                            <div id="nose-coord" class="text-emerald-400 font-bold text-lg">X:0.0 Y:0.0</div>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="stat-label">MOUTH_OUTLINE</span>
+                            <div id="mouth-coord" class="text-orange-400 font-bold text-lg">X:0.0 Y:0.0</div>
+                        </div>
+                        <div class="space-y-2">
+                            <span class="stat-label">FACE_OVAL BOUNDS</span>
+                            <div id="face-coord" class="text-white font-bold text-lg">X:0.0 Y:0.0</div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 bg-black/30 rounded-3xl border border-white/5 font-mono text-[10px] text-blue-300/60 leading-relaxed">
+                        > GPU_ACCEL: READY<br>
+                        > MESH_NODES: 468<br>
+                        > SCAN_MODE: FULL_MESH
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-6 relative bg-black rounded-[3rem] overflow-hidden border border-white/5">
+                <video id="input_video" class="hidden" autoplay playsinline></video>
+                <canvas id="output_canvas"></canvas>
+            </div>
+
+            <div class="lg:col-span-3 space-y-4 overflow-y-auto pr-2" id="blades-container">
+                <div class="glass p-12 rounded-[2.5rem] flex items-center justify-center text-slate-700 border-dashed border-2 border-slate-800 h-64">
+                    <p class="font-bold text-sm tracking-widest">AWAITING SUBJECTS...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const videoElement = document.getElementById('input_video');
+        const canvasElement = document.getElementById('output_canvas');
+        const canvasCtx = canvasElement.getContext('2d');
+        const bladesContainer = document.getElementById('blades-container');
+
+        // Feature Point Indices
+        const INDICES = { EYES: [33, 263], NOSE: 1, MOUTH: 13, OVAL: 10 };
+
+        async function switchSource(mode) {
+            const stream = mode === 'meet' ? 
+                await navigator.mediaDevices.getDisplayMedia({ video: true }) : 
+                await navigator.mediaDevices.getUserMedia({ video: { width: 1280, height: 720 } });
+            
+            videoElement.srcObject = stream;
+            document.getElementById('btn-camera').className = mode === 'camera' ? 'active-source text-xs font-bold px-8 py-3 rounded-xl' : 'text-slate-400 text-xs font-bold px-8 py-3 rounded-xl';
+            document.getElementById('btn-meet').className = mode === 'meet' ? 'active-source text-xs font-bold px-8 py-3 rounded-xl' : 'text-slate-400 text-xs font-bold px-8 py-3 rounded-xl';
+            canvasElement.style.transform = mode === 'meet' ? "scaleX(1)" : "scaleX(-1)";
+        }
+
+        function updateTelemetry(lm) {
+            document.getElementById('eye-coord').innerText = `X:${lm[33].x.toFixed(2)} Y:${lm[33].y.toFixed(2)}`;
+            document.getElementById('nose-coord').innerText = `X:${lm[1].x.toFixed(2)} Y:${lm[1].y.toFixed(2)}`;
+            document.getElementById('mouth-coord').innerText = `X:${lm[13].x.toFixed(2)} Y:${lm[13].y.toFixed(2)}`;
+            document.getElementById('face-coord').innerText = `X:${lm[10].x.toFixed(2)} Y:${lm[10].y.toFixed(2)}`;
+        }
+
+        function onResults(results) {
+            canvasCtx.save();
+            canvasCtx.clearRect(0, 0, canvasElement.width, canvasElement.height);
+            canvasCtx.drawImage(results.image, 0, 0, canvasElement.width, canvasElement.height);
+
+            const faces = results.multiFaceLandmarks;
+            if (faces && faces.length > 0) {
+                document.getElementById('node-count').innerText = faces.length;
+                updateTelemetry(faces[0]);
+                
+                let html = '';
+                faces.forEach((lm, i) => {
+                    drawConnectors(canvasCtx, lm, FACEMESH_TESSELATION, {color: '#38bdf820', lineWidth: 0.5});
+                    drawConnectors(canvasCtx, lm, FACEMESH_LIPS, {color: '#10b981', lineWidth: 2});
+
+                    const ear = Math.hypot(lm[159].x - lm[145].x, lm[159].y - lm[145].y);
+                    const mar = Math.hypot(lm[13].x - lm[14].x, lm[13].y - lm[14].y);
+                    const fatigue = Math.floor(Math.min(100, Math.max(0, (0.025 - ear) * 5000)));
+                    
+                    let mood = "NORMAL", color = "#38bdf8";
+                    if (mar > 0.05) { mood = "FATIGUE"; color = "#ef4444"; }
+                    else if (ear < 0.018) { mood = "DROWSY"; color = "#f59e0b"; }
+
+                    html += `
+                        <div class="glass p-8 rounded-[2.5rem] border-l-8 border-${color} mb-6 transition-all" style="border-color: ${color}">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="text-xs font-black text-slate-500 tracking-tighter">SUB_${i+1}</span>
+                                <span class="text-sm font-black px-4 py-1 rounded-full bg-black/40" style="color: ${color}">${mood}</span>
+                            </div>
+                            <div class="text-huge font-black text-white">${fatigue}%</div>
+                            <div class="text-xs font-bold text-slate-500 mt-2 uppercase">Core Fatigue Index</div>
+                        </div>`;
+                });
+                bladesContainer.innerHTML = html;
+            }
+            canvasCtx.restore();
+        }
+
+        const faceMesh = new FaceMesh({locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`});
+        faceMesh.setOptions({ maxNumFaces: 4, refineLandmarks: false, minDetectionConfidence: 0.5 });
+        faceMesh.onResults(onResults);
+
+        async function loop() {
+            if (videoElement.readyState >= 2) await faceMesh.send({image: videoElement});
+            requestAnimationFrame(loop);
+        }
+        switchSource('camera').then(() => loop());
+    </script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "type": "linear_regression",
+  "features": [
+    "physicalFatigueScore"
+  ],
+  "coef": [
+    0.6265326418665332
+  ],
+  "intercept": 11.669185679863244,
+  "metrics": {
+    "r2": 0.35353446566953406,
+    "mae": 12.033139166161527
+  }
+}

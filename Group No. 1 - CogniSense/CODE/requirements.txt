@@ -1,0 +1,1 @@
+fastapiuvicornpandasnumpyscikit-learnmatplotlibseabornuvicorn[standard]plotlyxgboost
